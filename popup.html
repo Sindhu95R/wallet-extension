@@ -1,1 +1,84 @@
-#Trial 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theta Wallet</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card2">
+        <div class="form">
+          <p id="heading">@trialheading</p>
+          <div class="field">
+            <input
+              type="number"
+              class="input-field"
+              placeholder="amount"
+              id="amount"
+            />
+          </div>
+          <div class="field">
+            <textarea
+              type="text"
+              class="input-field"
+              placeholder="Private Key"
+              id="private_key"
+              autocomplete="off"
+              cols="10"
+              rows="5"
+            >
+            </textarea>
+          </div>
+          <div class="field">
+            <textarea
+              type="text"
+              class="input-field"
+              placeholder="Transfer address"
+              id="address"
+              autocomplete="off"
+            >
+            </textarea>
+          </div>
+          <p class="space"></p>
+          <!--Loader-->
+          <div id="center" class="center">
+            <div class="loader">
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+              <div class="bar4"></div>
+              <div class="bar5"></div>
+              <div class="bar6"></div>
+              <div class="bar7"></div>
+              <div class="bar8"></div>
+              <div class="bar9"></div>
+              <div class="bar10"></div>
+              <div class="bar11"></div>
+              <div class="bar12"></div>
+            </div>
+          </div>
+          <small>
+            <a target="_blank" id="link" href=""> Check Your Transaction </a>
+          </small>
+          <!--Loader-->
+          <div class="btn">
+            <button id="form" class="button1">
+              &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Transfer&nbsp; &nbsp;
+              &nbsp; &nbsp; &nbsp; &nbsp;
+            </button>
+          </div>
+          <div class="btn">
+            <button id="check_balance" class="button3">Check Balance</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <h1>My Wallet</h1>
+    <div id="accountInfo"></div>
+    <button id="connectButton">Connect</button>
+    <button id="aiCalculateButton">AI Calculate</button> -->
+    <script src="./ethers.js"></script>
+    <script src="./popup.js"></script>
+  </body>
+</html>
