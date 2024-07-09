@@ -1,11 +1,18 @@
+body {
+  width: 400px; /* Set the desired width */
+  margin: 0;
+  padding: 0;
+}
+
 .form {
   display: flex;
+  align-self: center;
   flex-direction: column;
   gap: 10px;
   padding: 0.4em 2em;
   background-color: #171717;
   width: 100%;
-  max-width: 300px; /* Adjust max-width as needed */
+  max-width: 400px; /* Adjust max-width as needed */
   box-sizing: border-box;
 }
 

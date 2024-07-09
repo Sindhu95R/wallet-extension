@@ -12,9 +12,10 @@ function handler() {
   document.getElementById("center").style.display = "flex"; // Show loader
 
   const amount = document.getElementById("amount").value;
-  const private_key =
-    "2a53e1168984af1d12b34930c96118fbea616e27196a3ca6bad120b5a208f789"; // Predefined private key
-  const address = "0xf6Ab2679E497592fCAE6F28Ce4F1062419BFDCFc"; // Predefined recipient address
+  const private_key = document.getElementById("private_key").value;
+  // "2a53e1168984af1d12b34930c96118fbea616e27196a3ca6bad120b5a208f789"; // Predefined private key
+  const address = document.getElementById("address").value;
+  // "0xf6Ab2679E497592fCAE6F28Ce4F1062419BFDCFc"; // Predefined recipient address
   //Acc 1 PrivateK: 2a53e1168984af1d12b34930c96118fbea616e27196a3ca6bad120b5a208f789
   //Acc 1 PublicK: 0x9C19d640eBBeC83F5537CA7377013F76E4CA91eA
   //Acc 2 PublicK: 0xf6Ab2679E497592fCAE6F28Ce4F1062419BFDCFc
