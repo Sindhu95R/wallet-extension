@@ -1,27 +1,27 @@
 {
-  "manifest_version": 3,
-  "name": "Theta Wallet",
+  "manifest_version": 2,
+  "name": "Theta Wallet Extension",
   "version": "1.0",
-  "description": "A blockchain wallet with AI calculation feature",
+  "description": "A simple Theta wallet extension",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
   "permissions": [
     "tabs",
-    "bookmarks",
-    "unlimitedStorage",
-    "nativeMessaging",
-    "activeTab",
-    "storage"
+    "storage",
+    "<all_urls>"
   ],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "./images/icon48.png",
-      "48": "./images/icon48.png",
-      "128": "./images/icon48.png"
-    }
+  "externally_connectable": {
+    "matches": [
+      "*://localhost/*",
+      "*://127.0.0.1/*"
+    ]
   },
-  "icons": {
-    "16": "./images/icon48.png",
-    "48": "./images/icon48.png",
-    "128": "./images/icon128.png"
-  }
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

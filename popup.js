@@ -1,142 +1,181 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Add event listener for the Transfer button
-  document.getElementById("form").addEventListener("click", handler);
+let wallet;
+const provider = new ethers.providers.JsonRpcProvider(
+  "https://eth-rpc-api-testnet.thetatoken.org/rpc"
+);
 
-  // Add event listener for the Check Balance button
-  document
-    .getElementById("check_balance")
-    .addEventListener("click", checkBalance);
+document.addEventListener("DOMContentLoaded", initializeWallet);
+document.addEventListener("DOMContentLoaded", function () {
+  chrome.storage.local.get(["transactionData"], function (result) {
+    if (result.transactionData) {
+      document.getElementById("recipientAddress").value =
+        result.transactionData.recipientAddress;
+      document.getElementById("amount").value = result.transactionData.amount;
+      document.getElementById("categorySelect").value =
+        result.transactionData.category;
+      chrome.storage.local.remove(["transactionData"]); // Clean up after loading
+    }
+  });
 });
 
-function handler() {
-  document.getElementById("center").style.display = "flex"; // Show loader
+document
+  .getElementById("createWalletBtn")
+  .addEventListener("click", showCreateSection);
+document
+  .getElementById("importWalletBtn")
+  .addEventListener("click", showImportSection);
+document
+  .getElementById("saveNewWalletBtn")
+  .addEventListener("click", saveNewWallet);
+document.getElementById("loginBtn").addEventListener("click", importWallet);
+document.getElementById("sendBtn").addEventListener("click", sendTransaction);
+document.getElementById("logoutBtn").addEventListener("click", logout);
 
+function showSection(sectionId) {
+  const sections = [
+    "initialSection",
+    "createSection",
+    "importSection",
+    "walletSection",
+  ];
+  sections.forEach((section) => {
+    document.getElementById(section).style.display =
+      section === sectionId ? "block" : "none";
+  });
+}
+
+function initializeWallet() {
+  chrome.storage.local.get(["privateKey"], function (result) {
+    if (result.privateKey) {
+      wallet = new ethers.Wallet(result.privateKey, provider);
+      displayWalletInfo();
+    } else {
+      showSection("initialSection");
+    }
+  });
+}
+
+function showCreateSection() {
+  const newWallet = ethers.Wallet.createRandom();
+  document.getElementById("newWalletAddress").textContent = newWallet.address;
+  document.getElementById("newWalletPrivateKey").textContent =
+    newWallet.privateKey;
+  showSection("createSection");
+}
+
+function showImportSection() {
+  showSection("importSection");
+}
+
+function saveNewWallet() {
+  const privateKey = document.getElementById("newWalletPrivateKey").textContent;
+  wallet = new ethers.Wallet(privateKey, provider);
+  chrome.storage.local.set({ privateKey: privateKey }, function () {
+    console.log("New wallet saved");
+    displayWalletInfo();
+  });
+}
+
+async function importWallet() {
+  const privateKey = document.getElementById("privateKeyInput").value;
+  try {
+    wallet = new ethers.Wallet(privateKey, provider);
+    chrome.storage.local.set({ privateKey: privateKey }, function () {
+      console.log("Wallet imported");
+      displayWalletInfo();
+    });
+  } catch (error) {
+    alert("Invalid private key. Please try again.");
+  }
+}
+
+async function displayWalletInfo() {
+  const address = await wallet.getAddress();
+  const balance = await provider.getBalance(address);
+
+  document.getElementById("walletAddress").textContent = address;
+  document.getElementById("walletBalance").textContent =
+    ethers.utils.formatEther(balance);
+
+  showSection("walletSection");
+}
+
+async function sendTransaction() {
+  const recipientAddress = document.getElementById("recipientAddress").value;
   const amount = document.getElementById("amount").value;
-  const private_key = document.getElementById("private_key").value;
-  // "2a53e1168984af1d12b34930c96118fbea616e27196a3ca6bad120b5a208f789"; // Predefined private key
-  const address = document.getElementById("address").value;
-  // "0xf6Ab2679E497592fCAE6F28Ce4F1062419BFDCFc"; // Predefined recipient address
-  //Acc 1 PrivateK: 2a53e1168984af1d12b34930c96118fbea616e27196a3ca6bad120b5a208f789
-  //Acc 1 PublicK: 0x9C19d640eBBeC83F5537CA7377013F76E4CA91eA
-  //Acc 2 PublicK: 0xf6Ab2679E497592fCAE6F28Ce4F1062419BFDCFc
-  //Acc 2 PrivateK: 215c65bcd9a542b78eec02fab25dde28bdd14452c560f19807d62173fd5d67ac
-  // Initialize provider
-  const provider = new ethers.providers.JsonRpcProvider(
-    "https://eth-rpc-api-testnet.thetatoken.org/rpc"
-  );
+  const category = document.getElementById("categorySelect").value;
+  const address = await wallet.getAddress();
 
-  let wallet = new ethers.Wallet(private_key, provider);
+  if (!ethers.utils.isAddress(recipientAddress)) {
+    alert("Invalid recipient address");
+    return;
+  }
 
-  const tx = {
-    to: address,
-    value: ethers.utils.parseEther(amount),
-  };
+  document.querySelector(".loader").style.display = "block";
 
-  wallet
-    .sendTransaction(tx)
-    .then((txObj) => {
-      console.log("txHash", txObj.hash);
-      document.getElementById("center").style.display = "none"; // Hide loader
-      const a = document.getElementById("link");
-      a.href = `https://explorer.thetatoken.org/tx/${txObj.hash}`;
-      document.getElementById("link").style.display = "block"; // Show transaction link
+  try {
+    // This sends the actual transaction to the blockchain
+    const txResponse = await wallet.sendTransaction({
+      to: recipientAddress,
+      value: ethers.utils.parseEther(amount),
+    });
+
+    alert(`Transaction sent! Hash: ${txResponse.hash}`);
+    const txReceipt = await txResponse.wait();
+    alert("Transaction confirmed!");
+
+    const balance = await provider.getBalance(wallet.address);
+    document.getElementById("walletBalance").textContent =
+      ethers.utils.formatEther(balance);
+
+    // Create the payload with all the required details
+    const payload = {
+      wallet_address: address,
+      sender: address,
+      recipient: recipientAddress,
+      // gas_fee: ethers.utils.formatUnits(
+      //   txReceipt.gasUsed.mul(txReceipt.effectiveGasPrice),
+      //   "ether"
+      // ),
+      gas_fee: amount,
+      amount: amount,
+      category: category,
+      hash: txResponse.hash,
+      date: new Date().toISOString().substring(0, 10),
+      time: new Date().toTimeString().substring(0, 8),
+    };
+
+    // Send the payload to your server for AI calculations
+    sendCategoryDataToServer(payload);
+  } catch (error) {
+    alert("Error sending transaction to the db. Please try again.");
+    console.error("Error sending transaction:", error);
+  } finally {
+    // Hide the loader whether the transaction succeeds or fails
+    document.querySelector(".loader").style.display = "none";
+  }
+}
+
+function sendCategoryDataToServer(payload) {
+  fetch("https://theta-wallet-app.onrender.com/api/transaction", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
     })
     .catch((error) => {
-      console.error("Transaction error:", error);
-      document.getElementById("center").style.display = "none"; // Hide loader
-      alert("Transaction failed: " + error.message);
+      console.error("Error:", error);
     });
 }
 
-function checkBalance() {
-  document.getElementById("center").style.display = "flex"; // Show loader
-
-  // Initialize provider
-  const provider = new ethers.providers.JsonRpcProvider(
-    "https://eth-rpc-api-testnet.thetatoken.org/rpc"
-  );
-
-  const address = document.getElementById("address").value;
-  provider
-    .getBalance(address)
-    .then((balance) => {
-      // Convert balance to ether
-      const balanceInEth = ethers.utils.formatEther(balance);
-      document.getElementById(
-        "check_balance"
-      ).innerText = `Your Balance: ${balanceInEth} TFUEL`;
-      console.log(`balance: ${balanceInEth} TFUEL`);
-      document.getElementById("center").style.display = "none"; // Hide loader
-    })
-    .catch((error) => {
-      console.error("Error fetching balance:", error);
-      document.getElementById("center").style.display = "none"; // Hide loader
-      alert("Failed to fetch balance: " + error.message);
-    });
+function logout() {
+  chrome.storage.local.remove(["privateKey"], function () {
+    console.log("Wallet logged out");
+  });
+  wallet = null;
+  showSection("initialSection");
 }
-// document.addEventListener("DOMContentLoaded", function () {
-//   document.getElementById("form").addEventListener("click", handler);
-// });
-
-// function handler() {
-//   document.getElementById("center").style.display = "flex";
-
-//   const private_key = document.getElementById("private_key").value;
-//   const amount = document.getElementById("amount").value;
-//   const address = document.getElementById("address").value;
-
-//   test_p = "215c65bcd9a542b78eec02fab25dde28bdd14452c560f19807d62173fd5d67ac"; //Account with test money
-//   test_a = "0x9C19d640eBBeC83F5537CA7377013F76E4CA91eA"; // Chrome extension account 1 empty account
-
-//   //provider
-//   const provider = new ethers.providers.JsonRpcProvider(
-//     "https://eth-rpc-api-testnet.thetatoken.org/rpc"
-//   );
-
-//   let wallet = new ethers.Wallet(private_key, provider);
-
-//   const tx = {
-//     to: address,
-//     value: ethers.utils.parseEther(amount),
-//   };
-
-//   var a = document.getElementById("link");
-//   a.href = "link for reciept";
-
-//   wallet.sendTransaction(tx).then((txObj) => {
-//     console.log("txHash", txObj.hash);
-//     document.getElementById("center").style.display = "none";
-//     const a = document.getElementById("link");
-//     a.href = "/${txObj.hash}";
-//     document.getElementById("link").style.display = "block";
-//   });
-// }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   docuement
-//     .getElementById("check_balance")
-//     .addEventListener("click", checkBalance);
-// });
-
-// function checkBalance() {
-//   document.getElementById("center").style.display = "flex";
-
-//   //Provider
-//   const provider = new ethers.providers.JsonRpcProvider(
-//     "https://eth-rpc-api-testnet.thetatoken.org/rpc"
-//   );
-
-//   const signer = provider.getSigner();
-
-//   console.log(signer);
-
-//   const address = document.getElementById("address").value;
-//   provider.getBalance(address).then((balance) => {
-//     //convert to ether
-//     const balanceInEth = ethers.utils.formatEther(balance);
-//     document.getElementById("check_balance").innerText =
-//       "Your Balance: ${balanceInEth} TFUEL";
-//     console.log("balance: ${balanceInEth} ETH");
-//     document.getElementById("center").style.display = "none";
-//   });
-// }

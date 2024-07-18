@@ -1,136 +1,75 @@
 body {
-  width: 400px; /* Set the desired width */
-  margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  width: 300px;
+  background-color: #f0f0f0; /* Light background to make the buttons stand out */
 }
 
-.form {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0.4em 2em;
-  background-color: #171717;
+input,
+button,
+textarea,
+select {
+  display: block;
   width: 100%;
-  max-width: 400px; /* Adjust max-width as needed */
-  box-sizing: border-box;
-}
-
-#heading {
-  text-align: center;
-  margin: 2em;
-  color: rgb(0, 255, 200);
-  font-size: 1.2em;
-}
-
-.field {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5em;
-  border-radius: 25px;
-  padding: 0.6em;
+  margin-bottom: 10px;
+  padding: 10px;
   border: none;
-  outline: none;
-  color: white;
-  background-color: #171717;
-  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.input-icon {
-  height: 1.3em;
-  width: 1.3em;
-  fill: rgb(0, 255, 200);
-}
-
-.input-field {
-  background: none;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: rgb(0, 255, 200);
-}
-
-.form .btn {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  margin-top: 2.5em;
-}
-
-.button1,
-.button2,
-.button3 {
-  padding: 0.5em 1.1em;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  transition: 0.4s ease-in-out;
-  background-image: linear-gradient(163deg, #00ff75, #3700ff 100%);
-  color: rgb(0, 0, 0);
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.button1:hover,
-.button2:hover,
-.button3:hover {
-  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
-  color: rgb(0, 255, 200);
-}
-
-.card {
-  background-image: linear-gradient(163deg, #00ff75, #3700ff 100%);
-  transition: all 0.3s;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card2 {
-  border-radius: 0;
-  transition: all 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.card2:hover {
-  transform: scale(0.98);
-  border-radius: 20px;
-}
-
-small,
-p {
-  color: #fff;
-  text-align: center;
-}
-
-a {
-  text-decoration: none;
-  color: rgb(0, 255, 200);
-  display: none;
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Increased font size for better readability */
 }
 
 textarea {
+  height: 100px;
   resize: none;
 }
 
-.space {
-  margin-top: 0.3rem;
+button {
+  background-color: #fcd022; /* Default green color for buttons */
+  color: rgb(56, 54, 54);
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effects */
 }
 
-/* Loader */
-.center {
-  display: none;
+button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Specific button styles */
+#sendButton {
+  background-color: rgb(255, 208, 29); /* Yellow color */
+  border-radius: 50%; /* Make it round */
+  width: 60px;
+  height: 60px;
+  display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 24px; /* Increase font size for better visibility */
 }
 
+#logoutBtn {
+  background-color: rgb(29, 87, 191);
+  color: rgb(249, 243, 243); /* Blue color */
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#logoutBtn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+#importWalletBtn {
+  background-color: rgb(29, 87, 191);
+  color: rgb(249, 243, 243); /* Blue color */
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#importWalletBtn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
 .loader {
+  display: none;
   position: relative;
   width: 54px;
   height: 54px;
@@ -140,13 +79,14 @@ textarea {
 .loader div {
   width: 8%;
   height: 24%;
-  background: rgb(128, 128, 128);
+  background: rgb(0, 123, 255);
+  border: 2px solid rgb(255, 255, 255);
   position: absolute;
   left: 50%;
   top: 30%;
   opacity: 0;
   border-radius: 50px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
   animation: fade458 1s linear infinite;
 }
 
@@ -155,7 +95,7 @@ textarea {
     opacity: 1;
   }
   to {
-    opacity: 0.25;
+    opacity: 0.5;
   }
 }
 
