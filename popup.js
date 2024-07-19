@@ -136,6 +136,7 @@ async function sendTransaction() {
       //   txReceipt.gasUsed.mul(txReceipt.effectiveGasPrice),
       //   "ether"
       // ),
+
       gas_fee: amount,
       amount: amount,
       category: category,
@@ -143,6 +144,8 @@ async function sendTransaction() {
       date: new Date().toISOString().substring(0, 10),
       time: new Date().toTimeString().substring(0, 8),
     };
+
+    console.log("Payload to be sent:", payload);
 
     // Send the payload to your server for AI calculations
     sendCategoryDataToServer(payload);
