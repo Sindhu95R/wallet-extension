@@ -1,3 +1,4 @@
+/* global chrome */
 import React, { useState, useEffect } from "react";
 import {
   ThemeProvider,
@@ -86,6 +87,10 @@ const App = () => {
         }
       );
     }
+    // Added else ;
+   else {
+    	setCurrentSection("wallet");
+   }
   };
 
   const handleImportWallet = (importedWallet) => {
@@ -101,6 +106,10 @@ const App = () => {
         }
       );
     }
+    // Added else
+    else {
+      	setCurrentSection("wallet");
+    }
   };
 
   const handleLogout = () => {
@@ -110,6 +119,12 @@ const App = () => {
         setBalance("");
         setCurrentSection("initial");
       });
+    }
+    //Added Else
+    else {
+      	setWallet(null);
+      	setBalance("");
+      	setCurrentSection("initial");
     }
   };
 
