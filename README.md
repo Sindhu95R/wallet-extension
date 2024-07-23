@@ -35,39 +35,48 @@ New Wallet is a web-based cryptocurrency wallet application that provides a user
 ### Installation
 
 1. Clone the repository:
+
+```bash
 git clone https://github.com/Sindhu95R/wallet-extension
+```
+
 cd new-wallet
 
-2. Install dependencies:
+3. Install dependencies:
+
+```bash
 npm install
 or
 yarn install
-
+```
 ### Development
 
 To start the development server:
+```bash
 npm start
-
 or
 yarn start
+```
 
 The application will be available at http://localhost:3000.
 
 ### Building for Production
 
 To create a production build:
+```bash
 npm run build
-
 or
 yarn build
+```
 
 ### Testing
 
 To run the test suite:
+```bash
 npm test
-
 or
 yarn test
+```
 
 ## Scripts
 
