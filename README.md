@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# New Wallet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern wallet extension built with React and Ethereum integration.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+New Wallet is a web-based cryptocurrency wallet application that provides a user-friendly interface for managing Ethereum-based assets. It leverages the latest web technologies and blockchain libraries to offer a secure and efficient wallet experience.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Ethereum wallet functionality
+- Material-UI based responsive design
+- 3D visualizations using Three.js
+- React Router for seamless navigation
+- BigNumber.js for precise numerical operations
+- Comprehensive testing suite
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- React 18.3.1
+- Material-UI 5.16.4
+- Ethers.js 6.13.1
+- React Router 6.25.1
+- Three.js 0.166.1
+- BigNumber.js 9.1.2
+- Create React App (React Scripts 5.0.1)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (LTS version recommended)
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
+git clone https://github.com/Sindhu95R/wallet-extension
+cd new-wallet
 
-### `npm run eject`
+2. Install dependencies:
+npm install
+or
+yarn install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Development
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To start the development server:
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+or
+yarn start
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The application will be available at http://localhost:3000.
 
-## Learn More
+### Building for Production
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To create a production build:
+npm run build
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+or
+yarn build
 
-### Code Splitting
+### Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To run the test suite:
+npm test
 
-### Analyzing the Bundle Size
+or
+yarn test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Scripts
 
-### Making a Progressive Web App
+- start: Runs the app in development mode
+- build: Builds the app for production
+- test: Launches the test runner
+- eject: Ejects from Create React App configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## ESLint Configuration
 
-### Advanced Configuration
+This project uses ESLint with the following configurations:
+- react-app
+- react-app/jest
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Browser Support
 
-### Deployment
+### Production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- '>0.2%'
+- 'not dead'
+- 'not op_mini all'
 
-### `npm run build` fails to minify
+### Development
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Last 1 Chrome version
+- Last 1 Firefox version
+- Last 1 Safari version
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is private and not open for public use or distribution without explicit permission.

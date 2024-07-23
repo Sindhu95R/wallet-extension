@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+/* global chrome */
+=======
+>>>>>>> d5b28e1b34a175722c6746f78f05cec7a08acaf2
 import React, { useState, useEffect } from "react";
 import {
   ThemeProvider,
@@ -86,6 +90,13 @@ const App = () => {
         }
       );
     }
+<<<<<<< HEAD
+    // Added else ;
+   else {
+    	setCurrentSection("wallet");
+   }
+=======
+>>>>>>> d5b28e1b34a175722c6746f78f05cec7a08acaf2
   };
 
   const handleImportWallet = (importedWallet) => {
@@ -101,6 +112,13 @@ const App = () => {
         }
       );
     }
+<<<<<<< HEAD
+    // Added else
+    else {
+      	setCurrentSection("wallet");
+    }
+=======
+>>>>>>> d5b28e1b34a175722c6746f78f05cec7a08acaf2
   };
 
   const handleLogout = () => {
@@ -111,6 +129,15 @@ const App = () => {
         setCurrentSection("initial");
       });
     }
+<<<<<<< HEAD
+    //Added Else
+    else {
+      	setWallet(null);
+      	setBalance("");
+      	setCurrentSection("initial");
+    }
+=======
+>>>>>>> d5b28e1b34a175722c6746f78f05cec7a08acaf2
   };
 
   const handleConfirmTransaction = (details) => {
@@ -219,7 +246,12 @@ const App = () => {
   );
 };
 
+<<<<<<< HEAD
+export default App;
+// import React, { useState, useEffect } from "react";
+=======
 export default App; // import React, { useState, useEffect } from "react";
+>>>>>>> d5b28e1b34a175722c6746f78f05cec7a08acaf2
 // import {
 //   ThemeProvider,
 //   createTheme,

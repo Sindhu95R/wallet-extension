@@ -69,7 +69,11 @@ const ConfirmTransaction = ({ transactionDetails, onConfirm, onReject }) => {
       try {
         setLoadingOptimizer(true);
         const response = await axios.get(
+<<<<<<< HEAD
+          "https://theta-wallet-app.onrender.com/api/gas-price/predict"
+=======
           "https://theta-wallet-app.onrender.com/api/gas-price/predictaa"
+>>>>>>> d5b28e1b34a175722c6746f78f05cec7a08acaf2
         );
         setOptimizer(response.data.predictions);
       } catch (error) {
