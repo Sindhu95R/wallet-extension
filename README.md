@@ -78,6 +78,14 @@ or
 yarn test
 ```
 
+## Add to chrome
+1. Open Chrome
+2. Open My Extensions
+3. Click on 'Load Unpacked'
+4. Select the build folder created in the repo
+5. Open it
+6. Extension is successfully loaded on you chrome
+
 ## Scripts
 
 - start: Runs the app in development mode
